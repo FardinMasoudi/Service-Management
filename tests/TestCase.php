@@ -12,6 +12,6 @@ abstract class TestCase extends BaseTestCase
 
     public function create($model, array $params = [], ?int $count = null)
     {
-        return User::factory()->count($count)->create($params ?? []);
+        return $model::factory()->count($count)->create($params ?? []);
     }
 }
