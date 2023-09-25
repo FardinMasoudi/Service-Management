@@ -43,7 +43,6 @@ class VerificationCodeServiceTest extends TestCase
         ]);
     }
 
-
     public function test_system_throw_exception_with_invalid_driver()
     {
         $this->expectException('InvalidArgumentException');

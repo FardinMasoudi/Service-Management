@@ -39,6 +39,6 @@ class SmsMessage
                 'from' => $this->from,
                 'to' => $this->to,
                 'message' => $this->description
-            ]);
+            ])->body();
     }
 }

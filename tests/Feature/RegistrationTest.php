@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Notifications\Messages\SmsMessage;
+use GuzzleHttp\Psr7\Response;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -24,8 +26,20 @@ class RegistrationTest extends TestCase
         $response->assertStatus($statusCode);
     }
 
-    public function test_user_can_register_with_valid_credential()
+    public function test_user_can_register_with_valid_credential_and_send_verification_code_with_sms()
     {
+        $smsMessageMock = $this->mock(SmsMessage::class)
+            ->makePartial();
+
+        $smsMessageMock->shouldReceive('send')
+            ->andReturn(
+                new Response(200, [], json_encode([
+                    'data' => 'send'
+                ]))
+            );
+
+        app()->instance(SmsMessage::class, $smsMessageMock);
+
         $this->postJson('api/registration', [
             'name' => 'fardin',
             'email' => '70ardin@gmail.com',
@@ -36,6 +50,7 @@ class RegistrationTest extends TestCase
         $this->assertDatabaseHas('users', [
             'name' => 'fardin'
         ]);
+        $this->assertDatabaseCount('verification_codes', 1);
     }
 
     public static function RegistrationInvalidData(): array
