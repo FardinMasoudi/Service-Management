@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Actions\TicketManagement;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateTicketRequest;
 use App\Http\Resources\TicketResource;
+use App\Http\Services\TicketService;
 use App\Models\Ticket;
+
 
 class TicketController extends Controller
 {
@@ -20,7 +21,7 @@ class TicketController extends Controller
 
     public function show(Ticket $ticket)
     {
-        app(TicketManagement::class)->updateStatus(
+        app(TicketService::class)->updateStatus(
             $ticket,
             Ticket::STATUSES['SEENBYADMIN']
         );
@@ -30,7 +31,7 @@ class TicketController extends Controller
 
     public function update(Ticket $ticket, UpdateTicketRequest $request)
     {
-        app(TicketManagement::class)->updateStatus(
+        app(TicketService::class)->updateStatus(
             $ticket,
             $request->status
         );

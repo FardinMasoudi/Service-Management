@@ -24,7 +24,7 @@ class UserVerificationRequest extends FormRequest
     {
         return [
             'code' => ['string'],
-            'driver' => [Rule::in(config('services.verificationCodeDrivers'))]
+            'driver' => [Rule::in(['sms','email'])]
         ];
     }
 }

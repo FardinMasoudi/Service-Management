@@ -9,7 +9,9 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 
-
+/**
+ * @covers \App\Http\Controllers\Admin\TicketController
+ */
 class TicketTest extends TestCase
 {
     use RefreshDatabase;

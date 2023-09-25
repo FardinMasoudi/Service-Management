@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Actions;
+namespace App\Http\Services;
 
 use App\Models\Ticket;
-use Illuminate\Notifications\Notification;
 use Exception;
+use Illuminate\Notifications\Notification;
 
-class TicketManagement
+class TicketService
 {
     public function __construct(private Notification $notification){}
 

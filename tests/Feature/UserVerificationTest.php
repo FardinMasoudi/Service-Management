@@ -7,6 +7,9 @@ use App\Models\VerificationCode;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * @covers \App\Http\Controllers\UserVerificationController
+ */
 class UserVerificationTest extends TestCase
 {
     use RefreshDatabase;
