@@ -15,7 +15,7 @@ class LoginController extends Controller
         if (!Hash::check($request->password, $user->password)) {
             return response()->json(['errors' => [
                 'password' => ['0' => __('auth.invalid-password')]]
-            ], 401);
+            ], 403);
         }
 
         return response()->json([

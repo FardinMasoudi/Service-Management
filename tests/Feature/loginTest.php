@@ -22,6 +22,18 @@ class loginTest extends TestCase
         $this->postJson('api/login', [
             'email' => $user->email,
             'password' => '123456'
-        ])->dd();
+        ])->assertJsonStructure(['access_token']);
+    }
+
+    public function test_user_can_not_login_with_invalid_credenetial()
+    {
+        $user = $this->create(User::class, [
+            'email' => '70ardin@gmail.com',
+            'password' => '123456']);
+
+        $this->postJson('api/login', [
+            'email' => $user->email,
+            'password' => '123411' //invalid credentials
+        ])->assertStatus(403);
     }
 }
