@@ -1,0 +1,59 @@
+version: "3"
+services:
+  #PHP Service
+  laravel:
+    image: silvermo0n/php-fpm-nginx:8.1.7-alpine
+    restart: unless-stopped
+    depends_on:
+      - db
+    # user: root
+    environment:
+      SERVICE_NAME: laravel
+      SERVICE_TAGS: dev
+    working_dir: /var/www/html
+    ports:
+      - "4001:80"
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - service-management
+
+
+  #MySQL Service
+  db:
+    image: mysql:latest
+    restart: unless-stopped
+    tty: true
+    #user: ${USER_ID}
+    environment:
+      MYSQL_DATABASE: db_test
+      MYSQL_USER: user
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_AUTHENTICATION_PLUGIN: mysql_native_password
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    ports:
+      - '3306:3306' 
+    networks:
+      - service-management
+
+  phpmyadmin:
+    image: phpmyadmin:5.2.0
+    restart: always
+    tty: true
+    #    user: ${USER_ID}
+    ports:
+      - "8888:80"
+    depends_on:
+      - db
+    environment:
+      # PMA_HOST: db
+      # PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+      UPLOAD_LIMIT: 8000000000
+    networks:
+      - service-management 
+#Docker Networks
+networks:
+  service-management:
+    name: service-management
