@@ -44,7 +44,7 @@ It's used for implementing Verification code via email and sms
   easily.(open close principle)
 
 ## Notes
-
+- create business with Seeder(BusinessSeeder)
 - using @dataProvider directive with multiple sets of input data in tests.
 - write feature and unit test and mock notification drivers
 - The TicketService is used for update ticket status and send notification to user.
